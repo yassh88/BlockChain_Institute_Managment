@@ -1,20 +1,24 @@
 pragma solidity ^0.5.0;
 
 contract Institute{
-  string userName = "MyInstitue";
-  string password = "@123abc@";
+   struct InstituteDetails {
+        uint id;
+        string name;
+        uint studentCount;
+    }
 
-  event LoginResponse(bool isLoggedIn);
 
-  function login(string memory _userName, string memory _password) public{
-    require(bytes(_userName).length > 0, "userName should not be empty");
-    require(bytes(_password).length > 0, "password should not be empty");
-    if(keccak256(abi.encodePacked(_userName)) == keccak256(abi.encodePacked(userName))
-     && keccak256(abi.encodePacked(_password)) == keccak256(abi.encodePacked(password))){
-       emit LoginResponse(true);
-     } else {
-       emit LoginResponse(false);
-     }
+    mapping(uint => InstituteDetails) public Institutes;
 
-  }
+    event instituteCreatedEvent (
+        uint indexed instituteCount
+    );
+     // Store Candidates Count
+    uint public instituteCount;
+
+  function addInstitute (string memory _name) public {
+        instituteCount ++;
+        Institutes[instituteCount] = InstituteDetails(instituteCount, _name, 0);
+        emit instituteCreatedEvent(instituteCount);
+    }
 }

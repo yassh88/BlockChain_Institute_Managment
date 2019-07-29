@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Login from './Login';
+import Homepage from './Homepage';
 
 import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
-import Institute from '../abis/Institute.json'
+import SuperAdmin from '../abis/SuperAdmin.json'
 import './App.css';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
       hasVoted: false,
       loading: true,
       isError: false,
+      loginStatus: false,
       loginRequestSent: false,
     }
 
@@ -29,7 +31,7 @@ class App extends Component {
     web3.currentProvider.enable()
     this.web3 = new Web3(this.web3Provider)
 
-    this.institute = TruffleContract(Institute)
+    this.institute = TruffleContract(SuperAdmin)
     this.institute.setProvider(this.web3Provider)
 
     this.login = this.login.bind(this)
@@ -40,32 +42,33 @@ class App extends Component {
     // TODO: Refactor with promise chain
     this.web3.eth.getCoinbase((err, account) => {
       this.setState({ account })
-      this.institute.deployed().then((instituteInstance) => {
-        this.instituteInstance = instituteInstance
+      this.institute.deployed().then((superAdminInstance) => {
+        this.superAdminInstance = superAdminInstance
         this.watchEvents()
-        console.log('instituteInstance', this.instituteInstance);
+        console.log('superAdminInstance', this.superAdminInstance);
       })
     })
   }
  
   watchEvents() {
-    console.log('instituteInstance', this.instituteInstance);
-    this.instituteInstance.LoginResponse({
-      fromBlock: 0,
-      toBlock: 'latest'
+    console.log('superAdminInstance', this.superAdminInstance);
+    this.superAdminInstance.LoginResponse({
     }, (error,result) => {
       if(result&& result.args.isLoggedIn){
-        this.setState({ isError: false })
+        console.log(result.args.isLoggedIn);
+        this.setState({ loginStatus: true , isError: false})
       }
       else if(result&& !result.args.isLoggedIn){
+        console.log(result.args.isLoggedIn, result);
         this.setState({ isError: true })
       }
     })
   }
 
   login(username, password) {
+    console.log('called');
     this.setState({ loginRequestSent: true  });
-    this.instituteInstance.login(username, password, { from: this.state.account });
+    this.superAdminInstance.login(username, password, { from: this.state.account });
   }
 
   render() {
@@ -82,7 +85,10 @@ class App extends Component {
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
+              {this.state.loginStatus ? 
+               <Homepage/> : 
               <Login login={this.login} isError={this.state.isError}/>
+              }
               </div>
             </main>
           </div>
