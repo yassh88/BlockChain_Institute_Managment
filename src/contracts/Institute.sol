@@ -11,7 +11,7 @@ contract Institute{
     mapping(uint => InstituteDetails) public Institutes;
 
     event instituteCreatedEvent (
-        uint indexed instituteCount
+        uint  id
     );
      // Store Candidates Count
     uint public instituteCount;

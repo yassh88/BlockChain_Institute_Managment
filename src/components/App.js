@@ -53,6 +53,8 @@ class App extends Component {
   watchEvents() {
     console.log('superAdminInstance', this.superAdminInstance);
     this.superAdminInstance.LoginResponse({
+      fromBlock: 0,
+      toBlock: 'latest'
     }, (error,result) => {
       if(result&& result.args.isLoggedIn){
         console.log(result.args.isLoggedIn);
@@ -66,7 +68,6 @@ class App extends Component {
   }
 
   login(username, password) {
-    console.log('called');
     this.setState({ loginRequestSent: true  });
     this.superAdminInstance.login(username, password, { from: this.state.account });
   }

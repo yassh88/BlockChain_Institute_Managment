@@ -42,6 +42,7 @@ describe('SuperAdmin', (address) => {
     before(async () => {
       result = await superAdmin.login('MyInstitue', '@sdf@');
     });
+
     it('Login Failed', async () => {
       const event = result.logs[0].args
       assert.equal(event.isLoggedIn, false,'login response false ');

@@ -22,11 +22,9 @@ describe('Institute', async () => {
       result = await institute.addInstitute('My Institute');
     });
     it('Institute Created successfully', async() => {
-      const event = result.logs[0].args
-      console.log(result);
-      assert.isNumber(event.instituteCount, "Institute Id is number");
-      assert.isAbove(event.instituteCount, 0, "Institute Id is correct");
+      const event = result.logs[0].args;
+      assert.isNumber(event.id.toNumber(), "Institute Id is number");
+      assert.isAbove(event.id.toNumber(), 0, "Institute Id is correct");
     });
-    
   });
 });
