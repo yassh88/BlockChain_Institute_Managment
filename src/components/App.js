@@ -6,6 +6,7 @@ import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
 import SuperAdmin from '../abis/SuperAdmin.json'
 import './App.css';
+import web3Data from'./SharingData'
 
 class App extends Component {
   constructor(props) {
@@ -22,17 +23,17 @@ class App extends Component {
 
     if (typeof web3 != 'undefined') {
       // eslint-disable-next-line no-undef
-      this.web3Provider = web3.currentProvider
+      web3Data.web3Provider = web3.currentProvider
     } else {
-      this.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545')
+      web3Data.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545')
     }
 
     // eslint-disable-next-line no-undef
     web3.currentProvider.enable()
-    this.web3 = new Web3(this.web3Provider)
+    this.web3 = new Web3(web3Data.web3Provider)
 
     this.institute = TruffleContract(SuperAdmin)
-    this.institute.setProvider(this.web3Provider)
+    this.institute.setProvider(web3Data.web3Provider)
 
     this.login = this.login.bind(this)
     this.watchEvents = this.watchEvents.bind(this)
@@ -45,19 +46,16 @@ class App extends Component {
       this.institute.deployed().then((superAdminInstance) => {
         this.superAdminInstance = superAdminInstance
         this.watchEvents()
-        console.log('superAdminInstance', this.superAdminInstance);
       })
     })
   }
  
   watchEvents() {
-    console.log('superAdminInstance', this.superAdminInstance);
     this.superAdminInstance.LoginResponse({
       fromBlock: 0,
       toBlock: 'latest'
     }, (error,result) => {
       if(result&& result.args.isLoggedIn){
-        console.log(result.args.isLoggedIn);
         this.setState({ loginStatus: true , isError: false})
       }
       else if(result&& !result.args.isLoggedIn){
@@ -87,7 +85,7 @@ class App extends Component {
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
               {this.state.loginStatus ? 
-               <Homepage/> : 
+               <Homepage web3={this.web3} account={ this.state.account}/> : 
               <Login login={this.login} isError={this.state.isError}/>
               }
               </div>

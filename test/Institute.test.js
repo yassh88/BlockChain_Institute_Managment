@@ -23,6 +23,7 @@ describe('Institute', async () => {
     });
     it('Institute Created successfully', async() => {
       const event = result.logs[0].args;
+      console.log('event.id.toNumber()',event.id.toNumber());
       assert.isNumber(event.id.toNumber(), "Institute Id is number");
       assert.isAbove(event.id.toNumber(), 0, "Institute Id is correct");
     });

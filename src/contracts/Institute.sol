@@ -10,6 +10,10 @@ contract Institute{
 
     mapping(uint => InstituteDetails) public Institutes;
 
+    constructor() public{
+        addInstitute('test');
+    }
+
     event instituteCreatedEvent (
         uint  id
     );
