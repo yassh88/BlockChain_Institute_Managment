@@ -9,6 +9,8 @@ import web3Data from'./SharingData'
 function Homepage(props){
   const [show, setShow] = useState(false);
   const [instituteName, setInstitute] = useState(false);
+  const [UserName, setUserName] = useState(false);
+  const [Password, setPassword] = useState(false);
   const [instituteList, setInstituteList] = useState([]);
   const [instituteInstance, setInstituteInstance] = useState();
   const institute = TruffleContract(Institute)
@@ -36,10 +38,13 @@ function Homepage(props){
         const InstitutesArray = [];
          for (var i = 1; i <= result.args.id.toNumber(); i++) {
           await instituteObj.Institutes(i).then((instObj) => {
+            console.log('instObj', instObj)
             InstitutesArray.push({
               id: instObj[0].toNumber(),
               name: instObj[1],
-              studentCount: instObj[2].toNumber()
+              studentCount: instObj[2].toNumber(),
+              username: instObj[3],
+              password: instObj[4],
             });
           });
         }
@@ -54,13 +59,19 @@ function Homepage(props){
     setShow(false);
     setInstitute('');
     if(isSubmitted && instituteInstance){
-      instituteInstance.addInstitute(instituteName,{ from: props.account });
+      instituteInstance.addInstitute(instituteName, UserName, Password,{ from: props.account });
     }
   }
   const handleShow = () => setShow(true);
 
   const nameChange = (e) => {
     setInstitute(e.target.value);
+  }
+  const userNameChange = (e) => {
+    setUserName(e.target.value);
+  }
+  const passwordChange = (e) => {
+    setPassword(e.target.value);
   }
 
   const InstituteListComp =[];
@@ -70,6 +81,8 @@ function Homepage(props){
       <td>{instituteList[i].id}</td>
       <td>{instituteList[i].name}</td>
       <td>{instituteList[i].studentCount}</td>
+      <td>{instituteList[i].username}</td>
+      <td>{instituteList[i].password}</td>
     </tr>)
    };
 
@@ -83,6 +96,8 @@ function Homepage(props){
       <th>ID</th>
       <th>Name</th>
       <th>Count</th>
+      <th>UserName</th>
+      <th>Password</th>
     </tr>
   </thead>
     <tbody>
@@ -90,13 +105,17 @@ function Homepage(props){
     </tbody>
   </Table>
   <Button variant="primary" onClick={handleShow}>
-        Create School
+        Create Institute
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Create School</Modal.Title>
+          <Modal.Title>Create Institute</Modal.Title>
         </Modal.Header>
-        <Modal.Body><input onChange={nameChange} /></Modal.Body>
+        <Modal.Body>
+        <div style={{padding: '20px' }}><span style={{padding: '39px' }}>Name: </span><input placeholder="name" onChange={nameChange} /></div>
+        <div style={{padding: '20px' }}><span style={{padding: '39px' }}>UserName: </span><input placeholder="user name" onChange={userNameChange} /></div>
+        <div style={{padding: '20px' }}><span style={{padding: '39px' }}>Password: </span><input placeholder="password" onChange={passwordChange} /></div>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={()=>handleClose(true)}>
             Close
