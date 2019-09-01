@@ -23,37 +23,23 @@ function Homepage(props){
     props.web3.eth.getCoinbase((err, account) => {
       institute.deployed().then((instituteObj) => {
         setInstituteInstance(instituteObj);
-          watchEvents(instituteObj)
+        const InstitutesArray = [];
+        instituteObj.getInstitutesAccounts({from:props.account}).then(async (instAccounts)=>{
+          for (var i = 1; i <= instAccounts.length; i++) {
+            await instituteObj.getInstitutes(instAccounts[0], {from:props.account}).then((instObj) => {
+              InstitutesArray.push({
+                id: instObj[0].toNumber(),
+                name: instObj[1],
+                studentCount: instObj[2].toNumber(),
+              });
+            });
+          }
+          setInstituteList(InstitutesArray);
+        });
       })
     })
   },[]);
 
-  const watchEvents  = async (instituteObj)=> {
-    console.log(instituteObj.allEvents);
-    instituteObj.instituteCreatedEvent({
-      fromBlock: 0,
-      toBlock: 'latest'
-    }, async (error,result) => {
-      if(result&& result.args.id){
-        const InstitutesArray = [];
-         for (var i = 1; i <= result.args.id.toNumber(); i++) {
-          await instituteObj.Institutes(i).then((instObj) => {
-            console.log('instObj', instObj)
-            InstitutesArray.push({
-              id: instObj[0].toNumber(),
-              name: instObj[1],
-              studentCount: instObj[2].toNumber(),
-              username: instObj[3],
-              password: instObj[4],
-            });
-          });
-        }
-        setInstituteList(InstitutesArray);
-      }
-      else if(result&& !result.args.id){
-      }
-    })
-  }
 
   const handleClose = (isSubmitted) => {
     setShow(false);
@@ -75,7 +61,6 @@ function Homepage(props){
   }
 
   const InstituteListComp =[];
-  console.log('instituteList.length', instituteList.length)
   for (var i = 0; i < instituteList.length; i++) {
     InstituteListComp.push(<tr key={'key'+i}>
       <td>{instituteList[i].id}</td>
