@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import Login from './Login';
 import CreateInstitute from './CreateInstitute';
 import PropTypes from 'prop-types';
-import { Dropdown, Modal, Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
 import SuperAdmin from '../abis/SuperAdmin.json'
 import './App.css';
 import web3Data from'./SharingData'
 import Header from './Header'
+import Institute from '../abis/Institute.json'
+import {USER_TYPE, DRAWDOWN_TYPE} from './constants'
 
 
 class App extends Component {
@@ -38,7 +40,12 @@ class App extends Component {
 
     this.superAdmin = TruffleContract(SuperAdmin)
     this.superAdmin.setProvider(web3Data.web3Provider)
+    this.institute = TruffleContract(Institute)
+    this.institute.setProvider(web3Data.web3Provider)
     this.watchEvents = this.watchEvents.bind(this)
+    this.lastStatus = localStorage.getItem('loginStatus');
+    this.lastAccount=  localStorage.getItem('account');
+    this.userType = localStorage.getItem('userType');
   }
   
   componentDidMount() {
@@ -49,11 +56,9 @@ class App extends Component {
       await self.superAdmin.deployed().then(async (superAdminInstance) => {
         self.superAdminInstance = superAdminInstance
         await self.watchEvents();
-        let lastStatus = localStorage.getItem('loginStatus');
-        let lastAccount=  localStorage.getItem('account');
-        if(!lastStatus || lastAccount !== this.state.account){
-          self.superAdminInstance.login({ from: this.state.account });
-        } else {
+        console.log("this.userType", this.userType, USER_TYPE.Institute,  USER_TYPE.Admin)
+        if(this.lastStatus && this.lastAccount === this.state.account && USER_TYPE.Admin === this.userType){
+          console.log("alrady login")
           this.props.history.push({
             pathname: '/Home',
             state: { account: this.state.account },
@@ -62,13 +67,53 @@ class App extends Component {
         }
       })
     })
+
+    this.web3.eth.getCoinbase((err, account) => {
+      self.institute.deployed().then((instituteObj) => {
+        
+        self.instituteInstance =instituteObj;
+        if(this.lastStatus && this.lastAccount === account && USER_TYPE.Institute === this.userType){
+          console.log("deployed ins")
+          this.props.history.push('/InstituteHome');
+        }
+      })
+    })
     
   }
 
-  handleShow = (type) => this.setState({show: true, modalType: type});
+  handleShow = (type) => {
+    switch(type){
+      case DRAWDOWN_TYPE.CreateInstitute: {
+        this.setState({show: true, modalType: type});
+        break;
+      }
+      case DRAWDOWN_TYPE.InstituteLogin: {
+        this.instituteInstance.Institutes(this.state.account, { from: this.state.account }).then(instituteObj=>{
+          if(instituteObj[0].toNumber()>0){
+            console.log("instituteObj", instituteObj);
+            localStorage.setItem('loginStatus', true);
+            localStorage.setItem('account', this.state.account);
+            localStorage.setItem('userType', USER_TYPE.Institute);
+            this.props.history.push('/InstituteHome');
+          } else {
+            alert("You Account Is not Created")
+          }
+        });
+        break;
+      }
+      case DRAWDOWN_TYPE.SuperAdminLogin: {
+        this.userType = USER_TYPE.Admin;
+        this.superAdminInstance.login({ from: this.state.account });
+        break;
+      }
+    }
+  }
   handleClose = (isSuccess) => {
     this.setState({show: false});
     if(isSuccess){
+      localStorage.setItem('loginStatus', true);
+      localStorage.setItem('account', this.state.account);
+      localStorage.setItem('userType', USER_TYPE.Institute);
       this.props.history.push({
         pathname: '/InstituteHome',
         state: { account: this.state.account },
@@ -83,19 +128,24 @@ class App extends Component {
       toBlock: 'latest'
     }, (error,result) => {
       if(result&& result.args.isLoggedIn){
-        localStorage.setItem('loginStatus', true);
-        localStorage.setItem('account', this.state.account);
-        this.setState({ loginStatus: true , isError: false, show: false})
-        this.props.history.push({
-          pathname: '/Home',
-          state: { account: this.state.account },
-        });
+        if(USER_TYPE.Admin === this.userType ){
+          localStorage.setItem('loginStatus', true);
+          localStorage.setItem('account', this.state.account);
+          localStorage.setItem('userType', USER_TYPE.Admin);
+          this.setState({ loginStatus: true , isError: false, show: false})
+          this.props.history.push({
+            pathname: '/Home',
+            state: { account: this.state.account },
+          });
+        }
       }
       else if(result&& !result.args.isLoggedIn){
         console.log("fasl")
         localStorage.setItem('loginStatus', false);
         localStorage.setItem('account', '');
+        this.userType = '';
         this.setState({ isError: true, loginStatus: false })
+        alert("You are not Super Admin")
       }
     })
   }
@@ -104,7 +154,7 @@ class App extends Component {
     return (
       <div>
         <Header showDropDown handleShow={this.handleShow} />
-        <div> BlockChain Institute Management System</div>
+        <div> Home Page BlockChain Institute Management System</div>
         <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Create Institute</Modal.Title>

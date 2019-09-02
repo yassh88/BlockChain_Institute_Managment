@@ -24,7 +24,7 @@ function CreateInstitute(props){
 
   const watchEvents  = async (instituteObj)=> {
     instituteObj.instituteCreatedEvent({
-      fromBlock: 0,
+      fromBlock: 'latest',
       toBlock: 'latest'
     }, async (error,result) => {
       if(result&& result.args.id){

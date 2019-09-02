@@ -48,8 +48,8 @@ function AdminHomepage(props){
         setInstituteInstance(instituteObj);
         const InstitutesArray = [];
         instituteObj.getInstitutesAccounts({from:accountDetails}).then(async (instAccounts)=>{
-          for (var i = 1; i <= instAccounts.length; i++) {
-            await instituteObj.getInstitutes(instAccounts[0], {from:accountDetails}).then((instObj) => {
+          for (var i = 0; i < instAccounts.length; i++) {
+            await instituteObj.getInstitutes(instAccounts[i], {from:accountDetails}).then((instObj) => {
               InstitutesArray.push({
                 id: instObj[0].toNumber(),
                 name: instObj[1],
@@ -89,8 +89,6 @@ function AdminHomepage(props){
       <td>{instituteList[i].id}</td>
       <td>{instituteList[i].name}</td>
       <td>{instituteList[i].studentCount}</td>
-      <td>{instituteList[i].username}</td>
-      <td>{instituteList[i].password}</td>
     </tr>)
    };
 
@@ -104,8 +102,6 @@ function AdminHomepage(props){
       <th>ID</th>
       <th>Name</th>
       <th>Count</th>
-      <th>UserName</th>
-      <th>Password</th>
     </tr>
   </thead>
     <tbody>

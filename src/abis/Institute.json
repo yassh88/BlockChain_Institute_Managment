@@ -4773,12 +4773,12 @@
         }
       },
       "links": {},
-      "address": "0xcD8080CcF8aBf6dD343D50a1975FC2cc24424EE0",
-      "transactionHash": "0x98550c8960141fbf2ecca0404ce7016eee9fc9cd0cf98a912ae5dc9847b5eefb"
+      "address": "0x277d30d60b015D68Ce8ddf5Fd0e8570ba47CC14b",
+      "transactionHash": "0x7b72964970141a3740eb7b3b32840e1f8100bc0985f1e8863ec5876a38503bfd"
     }
   },
   "schemaVersion": "3.0.11",
-  "updatedAt": "2019-09-02T04:25:20.776Z",
+  "updatedAt": "2019-09-02T08:37:43.024Z",
   "devdoc": {
     "methods": {}
   },
