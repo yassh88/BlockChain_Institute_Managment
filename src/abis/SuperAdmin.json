@@ -54,14 +54,14 @@
     "absolutePath": "/home/anupam/Blockchain/BlockChain_Institute_Managment/src/contracts/SuperAdmin.sol",
     "exportedSymbols": {
       "SuperAdmin": [
-        212
+        271
       ]
     },
-    "id": 213,
+    "id": 272,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 171,
+        "id": 230,
         "literals": [
           "solidity",
           "^",
@@ -77,19 +77,19 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 212,
+        "id": 271,
         "linearizedBaseContracts": [
-          212
+          271
         ],
         "name": "SuperAdmin",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 173,
+            "id": 232,
             "name": "admin",
             "nodeType": "VariableDeclaration",
-            "scope": 212,
+            "scope": 271,
             "src": "48:20:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -98,7 +98,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 172,
+              "id": 231,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "48:7:2",
@@ -113,10 +113,10 @@
           },
           {
             "constant": false,
-            "id": 176,
+            "id": 235,
             "name": "userName",
             "nodeType": "VariableDeclaration",
-            "scope": 212,
+            "scope": 271,
             "src": "72:31:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -125,7 +125,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 174,
+              "id": 233,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "72:6:2",
@@ -137,7 +137,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "4d79496e73746974757465",
-              "id": 175,
+              "id": 234,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -156,10 +156,10 @@
           },
           {
             "constant": false,
-            "id": 179,
+            "id": 238,
             "name": "password",
             "nodeType": "VariableDeclaration",
-            "scope": 212,
+            "scope": 271,
             "src": "107:27:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -168,7 +168,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 177,
+              "id": 236,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "107:6:2",
@@ -180,7 +180,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "31323340616263",
-              "id": 178,
+              "id": 237,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -200,20 +200,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 183,
+            "id": 242,
             "name": "LoginResponse",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 182,
+              "id": 241,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 181,
+                  "id": 240,
                   "indexed": false,
                   "name": "isLoggedIn",
                   "nodeType": "VariableDeclaration",
-                  "scope": 183,
+                  "scope": 242,
                   "src": "159:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -222,7 +222,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 180,
+                    "id": 239,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "159:4:2",
@@ -241,25 +241,25 @@
           },
           {
             "body": {
-              "id": 191,
+              "id": 250,
               "nodeType": "Block",
               "src": "202:36:2",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 189,
+                    "id": 248,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 186,
+                      "id": 245,
                       "name": "admin",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 173,
+                      "referencedDeclaration": 232,
                       "src": "212:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -272,18 +272,18 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 187,
+                        "id": 246,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 227,
+                        "referencedDeclaration": 286,
                         "src": "221:3:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
                           "typeString": "msg"
                         }
                       },
-                      "id": 188,
+                      "id": 247,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -303,32 +303,32 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 190,
+                  "id": 249,
                   "nodeType": "ExpressionStatement",
                   "src": "212:19:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 192,
+            "id": 251,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 184,
+              "id": 243,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "193:2:2"
             },
             "returnParameters": {
-              "id": 185,
+              "id": 244,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "202:0:2"
             },
-            "scope": 212,
+            "scope": 271,
             "src": "182:56:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -336,7 +336,7 @@
           },
           {
             "body": {
-              "id": 210,
+              "id": 269,
               "nodeType": "Block",
               "src": "266:123:2",
               "statements": [
@@ -347,7 +347,7 @@
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     },
-                    "id": 198,
+                    "id": 257,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -356,18 +356,18 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 195,
+                        "id": 254,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 227,
+                        "referencedDeclaration": 286,
                         "src": "275:3:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
                           "typeString": "msg"
                         }
                       },
-                      "id": 196,
+                      "id": 255,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -385,11 +385,11 @@
                     "operator": "==",
                     "rightExpression": {
                       "argumentTypes": null,
-                      "id": 197,
+                      "id": 256,
                       "name": "admin",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 173,
+                      "referencedDeclaration": 232,
                       "src": "289:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -403,7 +403,7 @@
                     }
                   },
                   "falseBody": {
-                    "id": 208,
+                    "id": 267,
                     "nodeType": "Block",
                     "src": "342:42:2",
                     "statements": [
@@ -414,7 +414,7 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "66616c7365",
-                              "id": 205,
+                              "id": 264,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -437,18 +437,18 @@
                                 "typeString": "bool"
                               }
                             ],
-                            "id": 204,
+                            "id": 263,
                             "name": "LoginResponse",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 183,
+                            "referencedDeclaration": 242,
                             "src": "356:13:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_event_nonpayable$_t_bool_$returns$__$",
                               "typeString": "function (bool)"
                             }
                           },
-                          "id": 206,
+                          "id": 265,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -462,17 +462,17 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 207,
+                        "id": 266,
                         "nodeType": "EmitStatement",
                         "src": "351:25:2"
                       }
                     ]
                   },
-                  "id": 209,
+                  "id": 268,
                   "nodeType": "IfStatement",
                   "src": "272:112:2",
                   "trueBody": {
-                    "id": 203,
+                    "id": 262,
                     "nodeType": "Block",
                     "src": "295:41:2",
                     "statements": [
@@ -483,7 +483,7 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "74727565",
-                              "id": 200,
+                              "id": 259,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -506,18 +506,18 @@
                                 "typeString": "bool"
                               }
                             ],
-                            "id": 199,
+                            "id": 258,
                             "name": "LoginResponse",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 183,
+                            "referencedDeclaration": 242,
                             "src": "309:13:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_event_nonpayable$_t_bool_$returns$__$",
                               "typeString": "function (bool)"
                             }
                           },
-                          "id": 201,
+                          "id": 260,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -531,7 +531,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 202,
+                        "id": 261,
                         "nodeType": "EmitStatement",
                         "src": "304:24:2"
                       }
@@ -541,32 +541,32 @@
               ]
             },
             "documentation": null,
-            "id": 211,
+            "id": 270,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "login",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 193,
+              "id": 252,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "257:2:2"
             },
             "returnParameters": {
-              "id": 194,
+              "id": 253,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "266:0:2"
             },
-            "scope": 212,
+            "scope": 271,
             "src": "243:146:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 213,
+        "scope": 272,
         "src": "25:366:2"
       }
     ],
@@ -576,14 +576,14 @@
     "absolutePath": "/home/anupam/Blockchain/BlockChain_Institute_Managment/src/contracts/SuperAdmin.sol",
     "exportedSymbols": {
       "SuperAdmin": [
-        212
+        271
       ]
     },
-    "id": 213,
+    "id": 272,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 171,
+        "id": 230,
         "literals": [
           "solidity",
           "^",
@@ -599,19 +599,19 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 212,
+        "id": 271,
         "linearizedBaseContracts": [
-          212
+          271
         ],
         "name": "SuperAdmin",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 173,
+            "id": 232,
             "name": "admin",
             "nodeType": "VariableDeclaration",
-            "scope": 212,
+            "scope": 271,
             "src": "48:20:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -620,7 +620,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 172,
+              "id": 231,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "48:7:2",
@@ -635,10 +635,10 @@
           },
           {
             "constant": false,
-            "id": 176,
+            "id": 235,
             "name": "userName",
             "nodeType": "VariableDeclaration",
-            "scope": 212,
+            "scope": 271,
             "src": "72:31:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -647,7 +647,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 174,
+              "id": 233,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "72:6:2",
@@ -659,7 +659,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "4d79496e73746974757465",
-              "id": 175,
+              "id": 234,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -678,10 +678,10 @@
           },
           {
             "constant": false,
-            "id": 179,
+            "id": 238,
             "name": "password",
             "nodeType": "VariableDeclaration",
-            "scope": 212,
+            "scope": 271,
             "src": "107:27:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -690,7 +690,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 177,
+              "id": 236,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "107:6:2",
@@ -702,7 +702,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "31323340616263",
-              "id": 178,
+              "id": 237,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -722,20 +722,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 183,
+            "id": 242,
             "name": "LoginResponse",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 182,
+              "id": 241,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 181,
+                  "id": 240,
                   "indexed": false,
                   "name": "isLoggedIn",
                   "nodeType": "VariableDeclaration",
-                  "scope": 183,
+                  "scope": 242,
                   "src": "159:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -744,7 +744,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 180,
+                    "id": 239,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "159:4:2",
@@ -763,25 +763,25 @@
           },
           {
             "body": {
-              "id": 191,
+              "id": 250,
               "nodeType": "Block",
               "src": "202:36:2",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 189,
+                    "id": 248,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 186,
+                      "id": 245,
                       "name": "admin",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 173,
+                      "referencedDeclaration": 232,
                       "src": "212:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -794,18 +794,18 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 187,
+                        "id": 246,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 227,
+                        "referencedDeclaration": 286,
                         "src": "221:3:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
                           "typeString": "msg"
                         }
                       },
-                      "id": 188,
+                      "id": 247,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -825,32 +825,32 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 190,
+                  "id": 249,
                   "nodeType": "ExpressionStatement",
                   "src": "212:19:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 192,
+            "id": 251,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 184,
+              "id": 243,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "193:2:2"
             },
             "returnParameters": {
-              "id": 185,
+              "id": 244,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "202:0:2"
             },
-            "scope": 212,
+            "scope": 271,
             "src": "182:56:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -858,7 +858,7 @@
           },
           {
             "body": {
-              "id": 210,
+              "id": 269,
               "nodeType": "Block",
               "src": "266:123:2",
               "statements": [
@@ -869,7 +869,7 @@
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     },
-                    "id": 198,
+                    "id": 257,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -878,18 +878,18 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 195,
+                        "id": 254,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 227,
+                        "referencedDeclaration": 286,
                         "src": "275:3:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
                           "typeString": "msg"
                         }
                       },
-                      "id": 196,
+                      "id": 255,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -907,11 +907,11 @@
                     "operator": "==",
                     "rightExpression": {
                       "argumentTypes": null,
-                      "id": 197,
+                      "id": 256,
                       "name": "admin",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 173,
+                      "referencedDeclaration": 232,
                       "src": "289:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -925,7 +925,7 @@
                     }
                   },
                   "falseBody": {
-                    "id": 208,
+                    "id": 267,
                     "nodeType": "Block",
                     "src": "342:42:2",
                     "statements": [
@@ -936,7 +936,7 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "66616c7365",
-                              "id": 205,
+                              "id": 264,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -959,18 +959,18 @@
                                 "typeString": "bool"
                               }
                             ],
-                            "id": 204,
+                            "id": 263,
                             "name": "LoginResponse",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 183,
+                            "referencedDeclaration": 242,
                             "src": "356:13:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_event_nonpayable$_t_bool_$returns$__$",
                               "typeString": "function (bool)"
                             }
                           },
-                          "id": 206,
+                          "id": 265,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -984,17 +984,17 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 207,
+                        "id": 266,
                         "nodeType": "EmitStatement",
                         "src": "351:25:2"
                       }
                     ]
                   },
-                  "id": 209,
+                  "id": 268,
                   "nodeType": "IfStatement",
                   "src": "272:112:2",
                   "trueBody": {
-                    "id": 203,
+                    "id": 262,
                     "nodeType": "Block",
                     "src": "295:41:2",
                     "statements": [
@@ -1005,7 +1005,7 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "74727565",
-                              "id": 200,
+                              "id": 259,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -1028,18 +1028,18 @@
                                 "typeString": "bool"
                               }
                             ],
-                            "id": 199,
+                            "id": 258,
                             "name": "LoginResponse",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 183,
+                            "referencedDeclaration": 242,
                             "src": "309:13:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_event_nonpayable$_t_bool_$returns$__$",
                               "typeString": "function (bool)"
                             }
                           },
-                          "id": 201,
+                          "id": 260,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1053,7 +1053,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 202,
+                        "id": 261,
                         "nodeType": "EmitStatement",
                         "src": "304:24:2"
                       }
@@ -1063,32 +1063,32 @@
               ]
             },
             "documentation": null,
-            "id": 211,
+            "id": 270,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "login",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 193,
+              "id": 252,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "257:2:2"
             },
             "returnParameters": {
-              "id": 194,
+              "id": 253,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "266:0:2"
             },
-            "scope": 212,
+            "scope": 271,
             "src": "243:146:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 213,
+        "scope": 272,
         "src": "25:366:2"
       }
     ],
@@ -1102,12 +1102,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x6aBdaDa8FDE2fBA23CA6E1F03cD829a235C28f54",
-      "transactionHash": "0xf11eb3682fb5362bbc5fe96024384a3235da6f8df67590ee4425abe8b1c854cb"
+      "address": "0x727fF8B6a57c7883c433AB38FB948138D19EB318",
+      "transactionHash": "0x162b57397a296d506dc4b96c8992e3287807df7915d72146496bff687fa06445"
     }
   },
   "schemaVersion": "3.0.11",
-  "updatedAt": "2019-09-01T03:42:56.880Z",
+  "updatedAt": "2019-09-02T04:25:20.769Z",
   "devdoc": {
     "methods": {}
   },

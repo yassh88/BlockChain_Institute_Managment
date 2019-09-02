@@ -5,28 +5,51 @@ import { Button, Modal, Table, thead, tr, th, td, tbody } from "react-bootstrap"
 import TruffleContract from 'truffle-contract'
 import Institute from '../abis/Institute.json'
 import web3Data from'./SharingData'
+import Web3 from 'web3'
 
-function Homepage(props){
+function AdminHomepage(props){
   const [show, setShow] = useState(false);
   const [instituteName, setInstitute] = useState(false);
   const [UserName, setUserName] = useState(false);
   const [Password, setPassword] = useState(false);
   const [instituteList, setInstituteList] = useState([]);
   const [instituteInstance, setInstituteInstance] = useState();
+  const  accountDetails = props.history.location.state.account;
+  let lastStatus = localStorage.getItem('loginStatus');
+  let lastAccount=  localStorage.getItem('account');
+  
+  
+
+  if (typeof web3 != 'undefined') {
+    // eslint-disable-next-line no-undef
+    web3Data.web3Provider = web3.currentProvider
+  } else {
+    web3Data.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545')
+  }
+  // eslint-disable-next-line no-undef
+  web3.currentProvider.enable()
+  const web3Obj = new Web3(web3Data.web3Provider)
+
+  web3Obj.eth.getAccounts(async (err, account) => {
+    if(lastStatus=== 'false' || lastAccount.toLowerCase() !== account[0].toLowerCase()){
+      props.history.push('/')
+      return <div />;
+    }
+  });
+  console.log('after props.history.push')
   const institute = TruffleContract(Institute)
   institute.setProvider(web3Data.web3Provider)
-
   useEffect(() => {
   },[instituteList]);
 
   useEffect(() => {
-    props.web3.eth.getCoinbase((err, account) => {
+    web3Obj.eth.getCoinbase((err, account) => {
       institute.deployed().then((instituteObj) => {
         setInstituteInstance(instituteObj);
         const InstitutesArray = [];
-        instituteObj.getInstitutesAccounts({from:props.account}).then(async (instAccounts)=>{
+        instituteObj.getInstitutesAccounts({from:accountDetails}).then(async (instAccounts)=>{
           for (var i = 1; i <= instAccounts.length; i++) {
-            await instituteObj.getInstitutes(instAccounts[0], {from:props.account}).then((instObj) => {
+            await instituteObj.getInstitutes(instAccounts[0], {from:accountDetails}).then((instObj) => {
               InstitutesArray.push({
                 id: instObj[0].toNumber(),
                 name: instObj[1],
@@ -45,7 +68,7 @@ function Homepage(props){
     setShow(false);
     setInstitute('');
     if(isSubmitted && instituteInstance){
-      instituteInstance.addInstitute(instituteName, UserName, Password,{ from: props.account });
+      instituteInstance.addInstitute(instituteName, UserName, Password,{ from: accountDetails });
     }
   }
   const handleShow = () => setShow(true);
@@ -114,10 +137,10 @@ function Homepage(props){
     );
   }
 
-Homepage.propTypes = {
+AdminHomepage.propTypes = {
   Homepage: PropTypes.func,
   isError: PropTypes.bool,
   web3: PropTypes.object,
-  account: PropTypes.string,
+  history: PropTypes.object,
 };
-export default Homepage;
+export default AdminHomepage;

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import Login from './Login';
 import CreateInstitute from './CreateInstitute';
-import Homepage from './Homepage';
-
+import PropTypes from 'prop-types';
 import { Dropdown, Modal, Button } from "react-bootstrap";
 import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
 import SuperAdmin from '../abis/SuperAdmin.json'
 import './App.css';
 import web3Data from'./SharingData'
+import Header from './Header'
+
 
 class App extends Component {
   constructor(props) {
@@ -48,12 +49,15 @@ class App extends Component {
       await self.superAdmin.deployed().then(async (superAdminInstance) => {
         self.superAdminInstance = superAdminInstance
         await self.watchEvents();
-
         let lastStatus = localStorage.getItem('loginStatus');
         let lastAccount=  localStorage.getItem('account');
         if(!lastStatus || lastAccount !== this.state.account){
           self.superAdminInstance.login({ from: this.state.account });
         } else {
+          this.props.history.push({
+            pathname: '/Home',
+            state: { account: this.state.account },
+          });
           this.setState({ loginStatus: true , isError: false, show: false})
         }
       })
@@ -62,7 +66,15 @@ class App extends Component {
   }
 
   handleShow = (type) => this.setState({show: true, modalType: type});
-  handleClose = () => this.setState({show: false});
+  handleClose = (isSuccess) => {
+    this.setState({show: false});
+    if(isSuccess){
+      this.props.history.push({
+        pathname: '/InstituteHome',
+        state: { account: this.state.account },
+      });
+    }
+  } 
 
  
   watchEvents() {
@@ -74,8 +86,13 @@ class App extends Component {
         localStorage.setItem('loginStatus', true);
         localStorage.setItem('account', this.state.account);
         this.setState({ loginStatus: true , isError: false, show: false})
+        this.props.history.push({
+          pathname: '/Home',
+          state: { account: this.state.account },
+        });
       }
       else if(result&& !result.args.isLoggedIn){
+        console.log("fasl")
         localStorage.setItem('loginStatus', false);
         localStorage.setItem('account', '');
         this.setState({ isError: true, loginStatus: false })
@@ -86,45 +103,15 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-          <span
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-          >
-            BlockChain IMS 
-          </span>
-          <span className='pr-3 p-1'>
-          <Dropdown>
-            <Dropdown.Toggle variant="info" id="dropdown-basic">
-              Welcome
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={()=>this.handleShow(1)}>Create Account</Dropdown.Item>
-              <Dropdown.Item  onClick={()=>this.handleShow(2)}>Super Admin</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          </span>
-        </nav>
-        <div className="container-fluid mt-5">
-          <div className="row">
-            <main role="main" className="col-lg-12 d-flex text-center">
-              <div className="content mr-auto ml-auto">
-              {this.state.loginStatus ?
-               <Homepage web3={this.web3} account={ this.state.account}/> 
-               : <div> BlockChain Institute Management System</div>
-              }
-              </div>
-            </main>
-          </div>
-        </div>
+        <Header showDropDown handleShow={this.handleShow} />
+        <div> BlockChain Institute Management System</div>
         <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Create Institute</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         {this.state.modalType=== 2 ? <Login login={this.login} isError={this.state.isError}/>
-        : <CreateInstitute web3={this.web3} account={ this.state.account} isError={this.state.isError}/>}
-        
+        : <CreateInstitute web3={this.web3} account={ this.state.account} handleClose={this.handleClose} isError={this.state.isError}/>}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={()=>this.handleClose}>
@@ -137,4 +124,7 @@ class App extends Component {
   }
 }
 
+App.propTypes = {
+  history: PropTypes.object,
+};
 export default App;

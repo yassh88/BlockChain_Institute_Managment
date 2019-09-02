@@ -17,6 +17,7 @@ function CreateInstitute(props){
     props.web3.eth.getCoinbase((err, account) => {
       institute.deployed().then((instituteObj) => {
         setInstituteInstance(instituteObj);
+        watchEvents(instituteObj);
       })
     })
   },[]);
@@ -27,26 +28,15 @@ function CreateInstitute(props){
       toBlock: 'latest'
     }, async (error,result) => {
       if(result&& result.args.id){
-        const InstitutesArray = [];
         console.log('result.args.id', result.args.id);
-         for (var i = 1; i <= result.args.id.toNumber(); i++) {
-          await instituteObj.Institutes(i).then((instObj) => {
-            InstitutesArray.push({
-              id: instObj[0].toNumber(),
-              name: instObj[1],
-              studentCount: instObj[2].toNumber(),
-            });
-          });
-        }
-      }
-      else if(result&& !result.args.id){
+        props.handleClose(true);
+      } else if(result&& !result.args.id){
       }
     })
   }
 
-  const handleClose = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const price = window.web3.toWei('1', 'Ether')
     instituteInstance.addInstitute(instituteName ,{ from: props.account,value: window.web3.toWei('1', 'Ether') });
   }
 
@@ -56,7 +46,7 @@ function CreateInstitute(props){
 
     return (
       <div>
-       <form onSubmit={handleClose}  >
+       <form onSubmit={handleSubmit}  >
         <FormGroup controlId="Name" >
           <label>Name</label>
           <FormControl
@@ -80,6 +70,7 @@ function CreateInstitute(props){
 
 CreateInstitute.propTypes = {
   CreateInstitute: PropTypes.func,
+  handleClose: PropTypes.func,
   isError: PropTypes.bool,
   web3: PropTypes.object,
   account: PropTypes.string,
