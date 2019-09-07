@@ -1,7 +1,7 @@
 import React,  { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, Table, thead, tr, th, td, tbody } from "react-bootstrap";
-
+import { Button, Modal, Table } from "react-bootstrap";
+import { connect } from "react-redux";
 import TruffleContract from 'truffle-contract'
 import Institute from '../abis/Institute.json'
 import web3Data from'./SharingData'
@@ -36,13 +36,27 @@ function AdminHomepage(props){
       return <div />;
     }
   });
-  console.log('after props.history.push')
   const institute = TruffleContract(Institute)
   institute.setProvider(web3Data.web3Provider)
   useEffect(() => {
   },[instituteList]);
 
   useEffect(() => {
+    if(props.instituteInstance){
+      const InstitutesArray = [];
+      props.instituteInstance.getInstitutesAccounts({from:accountDetails}).then(async (instAccounts)=>{
+        for (var i = 0; i < instAccounts.length; i++) {
+          await props.instituteInstance.getInstitutes(instAccounts[i], {from:accountDetails}).then((instObj) => {
+            InstitutesArray.push({
+              id: instObj[0].toNumber(),
+              name: instObj[1],
+              studentCount: instObj[2].toNumber(),
+            });
+          });
+        }
+        setInstituteList(InstitutesArray);
+      });
+    } else {
     web3Obj.eth.getCoinbase((err, account) => {
       institute.deployed().then((instituteObj) => {
         setInstituteInstance(instituteObj);
@@ -61,6 +75,7 @@ function AdminHomepage(props){
         });
       })
     })
+  }
   },[]);
 
 
@@ -135,8 +150,16 @@ function AdminHomepage(props){
 
 AdminHomepage.propTypes = {
   Homepage: PropTypes.func,
+  superAdminInstance: PropTypes.object,
+  instituteInstance: PropTypes.object,
   isError: PropTypes.bool,
   web3: PropTypes.object,
   history: PropTypes.object,
 };
-export default AdminHomepage;
+
+const mapStateToProps = state => ({
+  superAdminInstance : state.superAdminInstance,
+  instituteInstance : state.instituteInstance,
+});
+
+export default connect(mapStateToProps, {} )(AdminHomepage);

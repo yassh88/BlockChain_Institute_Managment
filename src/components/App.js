@@ -10,7 +10,7 @@ import './App.css';
 import web3Data from'./SharingData'
 import Header from './Header'
 import { connect } from "react-redux";
-import {addUser} from './Redux/actions';
+import {addSuperAdmin, addInstitute} from './Redux/actions';
 import Institute from '../abis/Institute.json'
 import img1 from '../Images/img1.jpg'
 import img2 from '../Images/img2.jpg'
@@ -44,7 +44,6 @@ class App extends Component {
     // eslint-disable-next-line no-undef
     web3.currentProvider.enable()
     this.web3 = new Web3(web3Data.web3Provider)
-
     this.superAdmin = TruffleContract(SuperAdmin)
     this.superAdmin.setProvider(web3Data.web3Provider)
     this.institute = TruffleContract(Institute)
@@ -62,6 +61,7 @@ class App extends Component {
       self.setState({ account })
       await self.superAdmin.deployed().then(async (superAdminInstance) => {
         self.superAdminInstance = superAdminInstance
+        this.props.addSuperAdmin(superAdminInstance);
         await self.watchEvents();
         if(this.lastStatus && this.lastAccount === this.state.account && USER_TYPE.Admin === this.userType){
           this.props.history.push({
@@ -75,7 +75,7 @@ class App extends Component {
 
     this.web3.eth.getCoinbase((err, account) => {
       self.institute.deployed().then((instituteObj) => {
-        
+        this.props.addInstitute(instituteObj);
         self.instituteInstance =instituteObj;
         if(this.lastStatus && this.lastAccount === account && USER_TYPE.Institute === this.userType){
           console.log("deployed ins")
@@ -156,9 +156,6 @@ class App extends Component {
   }
 
   render() {
-    this.props.addUser('yash');
-    console.log('usersdfd', this.props.users)
-
     return (
       <div>
         <Header showDropDown handleShow={this.handleShow} />
@@ -218,12 +215,13 @@ class App extends Component {
 
 App.propTypes = {
   history: PropTypes.object,
-  addUser: PropTypes.func,
-  users: PropTypes.object,
+  addInstitute: PropTypes.func,
+  addSuperAdmin: PropTypes.func,
+  instances: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  users : state,
+  instances : state,
 });
 
-export default connect(mapStateToProps, {addUser} )(App);
+export default connect(mapStateToProps, {addSuperAdmin, addInstitute} )(App);
