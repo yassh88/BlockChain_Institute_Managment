@@ -1,15 +1,13 @@
 import { ADD_USER } from "./constants";
+import produce from 'immer';
 
-function userDataReducer(state={users: []}, action){
-    switch(action.type) {
-        case ADD_USER:
-          return Object.assign({}, state, 
-              {
-                users: [...state.users, action.user]
-               }); 
-         default: 
-           return state;
-     }
-}
+export const initialState = {name: ""};
+const userDataReducer = (state = initialState, action) => 
+  produce(state, draft => {
+      switch(action.type) {
+          case ADD_USER:
+            draft.name = action.user;
+      }
+  });
 
 export default userDataReducer;

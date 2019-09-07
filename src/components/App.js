@@ -2,14 +2,21 @@ import React, { Component } from 'react';
 import Login from './Login';
 import CreateInstitute from './CreateInstitute';
 import PropTypes from 'prop-types';
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Carousel } from "react-bootstrap";
 import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
 import SuperAdmin from '../abis/SuperAdmin.json'
 import './App.css';
 import web3Data from'./SharingData'
 import Header from './Header'
+import { connect } from "react-redux";
+import {addUser} from './Redux/actions';
 import Institute from '../abis/Institute.json'
+import img1 from '../Images/img1.jpg'
+import img2 from '../Images/img2.jpg'
+import img3 from '../Images/img3.jpg'
+import img4 from '../Images/img4.jpg'
+
 import {USER_TYPE, DRAWDOWN_TYPE} from './constants'
 
 
@@ -56,9 +63,7 @@ class App extends Component {
       await self.superAdmin.deployed().then(async (superAdminInstance) => {
         self.superAdminInstance = superAdminInstance
         await self.watchEvents();
-        console.log("this.userType", this.userType, USER_TYPE.Institute,  USER_TYPE.Admin)
         if(this.lastStatus && this.lastAccount === this.state.account && USER_TYPE.Admin === this.userType){
-          console.log("alrady login")
           this.props.history.push({
             pathname: '/Home',
             state: { account: this.state.account },
@@ -151,10 +156,47 @@ class App extends Component {
   }
 
   render() {
+    this.props.addUser('yash');
+    console.log('usersdfd', this.props.users)
+
     return (
       <div>
         <Header showDropDown handleShow={this.handleShow} />
-        <div> Home Page BlockChain Institute Management System</div>
+        <Carousel>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src={img2}
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>Welcome</h3>
+              <p>THis this the platform from where you can create your institute account on IMS .</p>
+            </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src={img3}
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>Welcome</h3>
+              <p>THis this the platform from where you can create your institute account on IMS .</p>
+            </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src={img4}
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>Welcome</h3>
+              <p>THis this the platform from where you can create your institute account on IMS .</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
         <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Create Institute</Modal.Title>
@@ -176,5 +218,12 @@ class App extends Component {
 
 App.propTypes = {
   history: PropTypes.object,
+  addUser: PropTypes.func,
+  users: PropTypes.object,
 };
-export default App;
+
+const mapStateToProps = state => ({
+  users : state,
+});
+
+export default connect(mapStateToProps, {addUser} )(App);

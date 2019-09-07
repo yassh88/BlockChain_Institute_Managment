@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 function InstituteHomePage(props){
   return(
-    <div>
+    <div className="mt-5">
       Welcome in BlockChain IMS 
     </div>
   )
