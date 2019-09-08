@@ -12,7 +12,6 @@ import Header from './Header'
 import { connect } from "react-redux";
 import {addSuperAdmin, addInstitute} from './Redux/actions';
 import Institute from '../abis/Institute.json'
-import img1 from '../Images/img1.jpg'
 import img2 from '../Images/img2.jpg'
 import img3 from '../Images/img3.jpg'
 import img4 from '../Images/img4.jpg'
@@ -111,6 +110,8 @@ class App extends Component {
         this.superAdminInstance.login({ from: this.state.account });
         break;
       }
+      default:
+      break;
     }
   }
   handleClose = (isSuccess) => {
@@ -217,7 +218,10 @@ App.propTypes = {
   history: PropTypes.object,
   addInstitute: PropTypes.func,
   addSuperAdmin: PropTypes.func,
-  instances: PropTypes.object,
+  instances: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]),
 };
 
 const mapStateToProps = state => ({

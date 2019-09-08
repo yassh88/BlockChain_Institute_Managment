@@ -150,8 +150,14 @@ function AdminHomepage(props){
 
 AdminHomepage.propTypes = {
   Homepage: PropTypes.func,
-  superAdminInstance: PropTypes.object,
-  instituteInstance: PropTypes.object,
+  superAdminInstance: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
+  instituteInstance: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
   isError: PropTypes.bool,
   web3: PropTypes.object,
   history: PropTypes.object,

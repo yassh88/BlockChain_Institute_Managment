@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { Route ,withRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css'
 import AppComp from './components/App';
@@ -7,10 +8,10 @@ import InstituteHomePage from './components/InstituteHomePage';
 import Header from './components/Header'
 
 
-function App(){
+function App(props ){
   return(
     <div>
-      <Header/>
+      <Header history={props.history}/>
       <div className="container-fluid">
           <div className="row">
             <main role="main" className="d-flex text-center">
@@ -25,5 +26,7 @@ function App(){
     </div>
   )
 }
-
+App.propTypes = {
+  history: PropTypes.object,
+}
 export default withRouter(App);

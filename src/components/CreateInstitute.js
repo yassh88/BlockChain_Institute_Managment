@@ -1,7 +1,6 @@
 import React,  { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button, FormGroup, FormControl } from "react-bootstrap";
-import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
 import Institute from '../abis/Institute.json'
 import web3Data from'./SharingData'

@@ -4,6 +4,11 @@ import { Dropdown} from "react-bootstrap";
 import { DRAWDOWN_TYPE} from './constants'
 
 function Header(props){
+
+  const Logout =()=>{
+    localStorage.clear();
+    props.history.push('/');
+  }
   return(
     <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <span
@@ -11,8 +16,8 @@ function Header(props){
     >
       BlockChain IMS 
     </span>
-    {props.showDropDown &&
     <span className='pr-3 p-1'>
+    {props.showDropDown ? 
     <Dropdown>
       <Dropdown.Toggle variant="info" id="dropdown-basic">
         Welcome
@@ -23,9 +28,17 @@ function Header(props){
         <Dropdown.Item  onClick={()=>props.handleShow(DRAWDOWN_TYPE.SuperAdminLogin)}>Admin Login</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-    </span>
-    }
-
+     : 
+    <Dropdown>
+      <Dropdown.Toggle variant="info" id="dropdown-basic">
+        Profile
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+      <Dropdown.Item onClick={()=>Logout()}>Logout</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+    } 
+</span>
     </nav>
   )
 }
@@ -33,5 +46,6 @@ function Header(props){
 Header.propTypes = {
   handleShow: PropTypes.func,
   showDropDown: PropTypes.bool,
+  history: PropTypes.object,
 };
 export default Header;

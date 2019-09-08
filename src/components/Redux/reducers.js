@@ -14,6 +14,8 @@ const userDataReducer = (state = initialState, action) =>
         case ADD_INSTITUTE_ADMIN:
             draft.instituteInstance = action.instance;
             break;
+        default: 
+        break;
       }
   });
 
