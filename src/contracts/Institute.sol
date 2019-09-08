@@ -14,7 +14,6 @@ contract Institute{
      // Store Candidates Count
     uint public instituteCount;
 
-
     mapping(address => InstituteDetails) public Institutes;
     address[] public InstitutesAccounts;
 
