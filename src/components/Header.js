@@ -23,7 +23,6 @@ function Header(props){
         Welcome
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item onClick={()=>props.handleShow(DRAWDOWN_TYPE.CreateInstitute)}>Create Account</Dropdown.Item>
         <Dropdown.Item  onClick={()=>props.handleShow(DRAWDOWN_TYPE.InstituteLogin)}>Institute Login</Dropdown.Item>
         <Dropdown.Item  onClick={()=>props.handleShow(DRAWDOWN_TYPE.SuperAdminLogin)}>Admin Login</Dropdown.Item>
       </Dropdown.Menu>

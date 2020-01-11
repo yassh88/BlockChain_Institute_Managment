@@ -8,23 +8,33 @@ import InstituteHomePage from './components/InstituteHomePage';
 import Header from './components/Header'
 
 
-function App(props ){
-  return(
-    <div>
-      <Header history={props.history}/>
-      <div className="container-fluid">
-          <div className="row">
-            <main role="main" className="d-flex text-center">
-              <div className="content mr-auto ml-auto">
-                <Route exact path="/" component={AppComp} />
-                <Route path="/Home" component={AdminHomepage} />
-                <Route path="/InstituteHome" component={InstituteHomePage} />
-              </div>
-            </main>
-          </div>
+  class App extends React.Component {
+
+    componentDidMount() {
+      //access drizzle props within componentDidMount
+      const { drizzle, drizzleState } = this.props;
+      console.log('drizzle', drizzle);
+      console.log('drizzleState', drizzleState);
+   }
+    render(){
+      console.log('this.props', this.props);
+    return(
+      <div>
+        <Header history={this.props.history}/>
+        <div className="container-fluid">
+            <div className="row">
+              <main role="main" className="d-flex text-center">
+                <div className="content mr-auto ml-auto">
+                  <Route exact path="/" component={AppComp} />
+                  <Route path="/Home" component={AdminHomepage} />
+                  <Route path="/InstituteHome" component={InstituteHomePage} />
+                </div>
+              </main>
+            </div>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 App.propTypes = {
   history: PropTypes.object,

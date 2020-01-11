@@ -87,10 +87,6 @@ class App extends Component {
 
   handleShow = (type) => {
     switch(type){
-      case DRAWDOWN_TYPE.CreateInstitute: {
-        this.setState({show: true, modalType: type});
-        break;
-      }
       case DRAWDOWN_TYPE.InstituteLogin: {
         this.instituteInstance.Institutes(this.state.account, { from: this.state.account }).then(instituteObj=>{
           if(instituteObj[0].toNumber()>0){
